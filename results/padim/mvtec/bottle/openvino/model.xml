@@ -1,0 +1,3138 @@
+<?xml version="1.0" ?>
+<net name="torch-jit-export" version="11">
+	<layers>
+		<layer id="0" name="input" type="Parameter" version="opset1">
+			<data element_type="f32" shape="1,3,256,256"/>
+			<rt_info>
+				<attribute name="fused_names" value="input" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="input" precision="FP32">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="1" name="onnx::Conv_268" type="Const" version="opset1">
+			<data element_type="f32" offset="0" shape="64, 3, 7, 7" size="37632"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_268" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_268" precision="FP32">
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>7</dim>
+					<dim>7</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="2" name="Convolution_42" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="3, 3" pads_end="3, 3" strides="2, 2"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_42" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>7</dim>
+					<dim>7</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="3" name="Reshape_62" type="Const" version="opset1">
+			<data element_type="f32" offset="37632" shape="1, 64, 1, 1" size="256"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="4" name="input.4" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_61, Reshape_62, input.4" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.4" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="5" name="onnx::MaxPool_97" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::MaxPool_97" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::MaxPool_97" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="6" name="input.8" type="MaxPool" version="opset8">
+			<data auto_pad="explicit" axis="0" dilations="1, 1" index_element_type="i64" kernel="3, 3" pads_begin="1, 1" pads_end="1, 1" rounding_type="floor" strides="2, 2"/>
+			<rt_info>
+				<attribute name="fused_names" value="input.8" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="input.8" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="7" name="onnx::Conv_271" type="Const" version="opset1">
+			<data element_type="f32" offset="37888" shape="64, 64, 3, 3" size="147456"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_271" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_271" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="8" name="Convolution_92" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_92" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="9" name="Reshape_112" type="Const" version="opset1">
+			<data element_type="f32" offset="185344" shape="1, 64, 1, 1" size="256"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="10" name="input.16" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_111, Reshape_112, input.16" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.16" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="11" name="onnx::Conv_101" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_101" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Conv_101" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="12" name="onnx::Conv_274" type="Const" version="opset1">
+			<data element_type="f32" offset="185600" shape="64, 64, 3, 3" size="147456"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_274" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_274" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="13" name="Convolution_141" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_141" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="14" name="Reshape_161" type="Const" version="opset1">
+			<data element_type="f32" offset="333056" shape="1, 64, 1, 1" size="256"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="15" name="onnx::Add_273" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_160, Reshape_161, onnx::Add_273" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_273" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="16" name="onnx::Relu_104" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Relu_104" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Relu_104" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="17" name="input.24" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="input.24" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="input.24" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="18" name="onnx::Conv_277" type="Const" version="opset1">
+			<data element_type="f32" offset="333312" shape="64, 64, 3, 3" size="147456"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_277" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_277" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="19" name="Convolution_191" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_191" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="20" name="Reshape_211" type="Const" version="opset1">
+			<data element_type="f32" offset="480768" shape="1, 64, 1, 1" size="256"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="21" name="input.32" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_210, Reshape_211, input.32" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.32" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="22" name="onnx::Conv_108" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_108" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Conv_108" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="23" name="onnx::Conv_280" type="Const" version="opset1">
+			<data element_type="f32" offset="481024" shape="64, 64, 3, 3" size="147456"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_280" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_280" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="24" name="Convolution_240" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_240" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="25" name="Reshape_260" type="Const" version="opset1">
+			<data element_type="f32" offset="628480" shape="1, 64, 1, 1" size="256"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="26" name="onnx::Add_279" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_259, Reshape_260, onnx::Add_279" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_279" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="27" name="onnx::Relu_111" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Relu_111" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Relu_111" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="28" name="input.40" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="input.40" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="input.40" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="29" name="onnx::Conv_283" type="Const" version="opset1">
+			<data element_type="f32" offset="628736" shape="128, 64, 3, 3" size="294912"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_283" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_283" precision="FP32">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="30" name="Convolution_290" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_290" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="31" name="Reshape_310" type="Const" version="opset1">
+			<data element_type="f32" offset="923648" shape="1, 128, 1, 1" size="512"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="32" name="input.48" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_309, Reshape_310, input.48" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.48" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="33" name="onnx::Conv_115" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_115" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Conv_115" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="34" name="onnx::Conv_286" type="Const" version="opset1">
+			<data element_type="f32" offset="924160" shape="128, 128, 3, 3" size="589824"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_286" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_286" precision="FP32">
+					<dim>128</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="35" name="Convolution_339" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_339" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="36" name="Reshape_359" type="Const" version="opset1">
+			<data element_type="f32" offset="1513984" shape="1, 128, 1, 1" size="512"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="37" name="onnx::Add_285" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_358, Reshape_359, onnx::Add_285" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_285" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="38" name="onnx::Conv_289" type="Const" version="opset1">
+			<data element_type="f32" offset="1514496" shape="128, 64, 1, 1" size="32768"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_289" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_289" precision="FP32">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="39" name="Convolution_387" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="0, 0" pads_end="0, 0" strides="2, 2"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_387" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="40" name="Reshape_407" type="Const" version="opset1">
+			<data element_type="f32" offset="1547264" shape="1, 128, 1, 1" size="512"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="41" name="onnx::Add_288" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_406, Reshape_407, onnx::Add_288" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_288" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="42" name="onnx::Relu_120" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Relu_120" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Relu_120" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="43" name="input.60" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="input.60" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="input.60" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="44" name="onnx::Conv_292" type="Const" version="opset1">
+			<data element_type="f32" offset="1547776" shape="128, 128, 3, 3" size="589824"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_292" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_292" precision="FP32">
+					<dim>128</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="45" name="Convolution_437" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_437" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="46" name="Reshape_457" type="Const" version="opset1">
+			<data element_type="f32" offset="2137600" shape="1, 128, 1, 1" size="512"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="47" name="input.68" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_456, Reshape_457, input.68" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.68" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="48" name="onnx::Conv_124" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_124" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Conv_124" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="49" name="onnx::Conv_295" type="Const" version="opset1">
+			<data element_type="f32" offset="2138112" shape="128, 128, 3, 3" size="589824"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_295" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_295" precision="FP32">
+					<dim>128</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="50" name="Convolution_486" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_486" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="51" name="Reshape_506" type="Const" version="opset1">
+			<data element_type="f32" offset="2727936" shape="1, 128, 1, 1" size="512"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="52" name="onnx::Add_294" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_505, Reshape_506, onnx::Add_294" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_294" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="53" name="onnx::Relu_127" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Relu_127" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Relu_127" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="54" name="input.76" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="input.76" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="input.76" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="55" name="onnx::Slice_150" type="ShapeOf" version="opset3">
+			<data output_type="i64"/>
+			<rt_info>
+				<attribute name="fused_names" value="ShapeOf_810, onnx::Slice_150" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Slice_150" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="56" name="onnx::Slice_152" type="Const" version="opset1">
+			<data element_type="i64" offset="2728448" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_788, ShapeOf_787, onnx::Concat_154, onnx::Slice_151, onnx::Slice_152, onnx::Slice_153" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Slice_152" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="57" name="onnx::Slice_153" type="Const" version="opset1">
+			<data element_type="i64" offset="2728456" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_788, ShapeOf_787, onnx::Concat_154, onnx::Slice_151, onnx::Slice_152, onnx::Slice_153" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Slice_153" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="58" name="Broadcast_788" type="Const" version="opset1">
+			<data element_type="i64" offset="2728464" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_788, ShapeOf_787, onnx::Concat_154, onnx::Slice_151, onnx::Slice_152, onnx::Slice_153" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="59" name="onnx::Concat_154" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="" end_mask="0" new_axis_mask="" shrink_axis_mask=""/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_788, ShapeOf_787, onnx::Concat_154, onnx::Slice_151, onnx::Slice_152, onnx::Slice_153" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="onnx::Concat_154" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="60" name="onnx::Concat_315" type="Const" version="opset1">
+			<data element_type="i64" offset="2728472" shape="2" size="16"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Concat_315" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Concat_315" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="61" name="onnx::Resize_156" type="Concat" version="opset1">
+			<data axis="0"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Concat_315, onnx::Resize_156" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Resize_156" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="62" name="Convert_812" type="Convert" version="opset1">
+			<data destination_type="f32"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convert_812" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="63" name="Convert_811" type="Convert" version="opset1">
+			<data destination_type="f32"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convert_811" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="64" name="Divide_813" type="Divide" version="opset1">
+			<data auto_broadcast="numpy" m_pythondiv="true"/>
+			<rt_info>
+				<attribute name="fused_names" value="Divide_813" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="65" name="Constant_4014" type="Const" version="opset1">
+			<data element_type="f32" offset="2728488" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="66" name="Add_815" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Add_815" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="67" name="onnx::Concat_159" type="Interpolate" version="opset4">
+			<data antialias="false" coordinate_transformation_mode="asymmetric" cube_coeff="-0.75" mode="nearest" nearest_mode="floor" pads_begin="0, 0, 0, 0" pads_end="0, 0, 0, 0" shape_calculation_mode="sizes"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Concat_159" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="onnx::Concat_159" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="68" name="onnx::Shape_160" type="Concat" version="opset1">
+			<data axis="1"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Shape_160" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Shape_160" precision="FP32">
+					<dim>1</dim>
+					<dim>192</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="69" name="onnx::Conv_298" type="Const" version="opset1">
+			<data element_type="f32" offset="2728492" shape="256, 128, 3, 3" size="1179648"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_298" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_298" precision="FP32">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="70" name="Convolution_536" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_536" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="71" name="Reshape_556" type="Const" version="opset1">
+			<data element_type="f32" offset="3908140" shape="1, 256, 1, 1" size="1024"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="72" name="input.84" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_555, Reshape_556, input.84" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.84" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="73" name="onnx::Conv_131" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_131" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Conv_131" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="74" name="onnx::Conv_301" type="Const" version="opset1">
+			<data element_type="f32" offset="3909164" shape="256, 256, 3, 3" size="2359296"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_301" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_301" precision="FP32">
+					<dim>256</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="75" name="Convolution_585" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_585" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="76" name="Reshape_605" type="Const" version="opset1">
+			<data element_type="f32" offset="6268460" shape="1, 256, 1, 1" size="1024"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="77" name="onnx::Add_300" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_604, Reshape_605, onnx::Add_300" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_300" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="78" name="onnx::Conv_304" type="Const" version="opset1">
+			<data element_type="f32" offset="6269484" shape="256, 128, 1, 1" size="131072"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_304" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_304" precision="FP32">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="79" name="Convolution_633" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="0, 0" pads_end="0, 0" strides="2, 2"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_633" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="80" name="Reshape_653" type="Const" version="opset1">
+			<data element_type="f32" offset="6400556" shape="1, 256, 1, 1" size="1024"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="81" name="onnx::Add_303" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_652, Reshape_653, onnx::Add_303" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_303" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="82" name="onnx::Relu_136" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Relu_136" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Relu_136" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="83" name="input.96" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="input.96" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="input.96" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="84" name="onnx::Conv_307" type="Const" version="opset1">
+			<data element_type="f32" offset="6401580" shape="256, 256, 3, 3" size="2359296"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_307" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_307" precision="FP32">
+					<dim>256</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="85" name="Convolution_683" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_683" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="86" name="Reshape_703" type="Const" version="opset1">
+			<data element_type="f32" offset="8760876" shape="1, 256, 1, 1" size="1024"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="87" name="input.104" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_702, Reshape_703, input.104" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="input.104" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="88" name="onnx::Conv_140" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_140" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Conv_140" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="89" name="onnx::Conv_310" type="Const" version="opset1">
+			<data element_type="f32" offset="8761900" shape="256, 256, 3, 3" size="2359296"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Conv_310" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Conv_310" precision="FP32">
+					<dim>256</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="90" name="Convolution_732" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convolution_732" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="91" name="Reshape_752" type="Const" version="opset1">
+			<data element_type="f32" offset="11121196" shape="1, 256, 1, 1" size="1024"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="92" name="onnx::Add_309" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Concat_751, Reshape_752, onnx::Add_309" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Add_309" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="93" name="onnx::Relu_143" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Relu_143" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Relu_143" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="94" name="layer_embedding" type="ReLU" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="layer_embedding" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="layer_embedding" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="95" name="onnx::Slice_170" type="ShapeOf" version="opset3">
+			<data output_type="i64"/>
+			<rt_info>
+				<attribute name="fused_names" value="ShapeOf_892, onnx::Slice_170" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Slice_170" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="96" name="onnx::Slice_172" type="Const" version="opset1">
+			<data element_type="i64" offset="2728448" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_869, ShapeOf_868, onnx::Concat_174, onnx::Slice_171, onnx::Slice_172, onnx::Slice_173" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Slice_172" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="97" name="onnx::Slice_173" type="Const" version="opset1">
+			<data element_type="i64" offset="2728456" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_869, ShapeOf_868, onnx::Concat_174, onnx::Slice_171, onnx::Slice_172, onnx::Slice_173" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Slice_173" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="98" name="Broadcast_869" type="Const" version="opset1">
+			<data element_type="i64" offset="2728464" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_869, ShapeOf_868, onnx::Concat_174, onnx::Slice_171, onnx::Slice_172, onnx::Slice_173" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="99" name="onnx::Concat_174" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="" end_mask="0" new_axis_mask="" shrink_axis_mask=""/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_869, ShapeOf_868, onnx::Concat_174, onnx::Slice_171, onnx::Slice_172, onnx::Slice_173" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="onnx::Concat_174" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="100" name="onnx::Gather_161" type="ShapeOf" version="opset3">
+			<data output_type="i64"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Gather_161, onnx::Gather_164" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>192</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Gather_161,onnx::Gather_164" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="101" name="Constant_3523" type="Const" version="opset1">
+			<data element_type="i64" offset="11122220" shape="2" size="16"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Cast_169" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="102" name="Constant_3524" type="Const" version="opset1">
+			<data element_type="i64" offset="2728448" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="103" name="Gather_3525" type="Gather" version="opset8">
+			<data batch_dims="0"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Cast_169, onnx::Concat_175" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" names="onnx::Cast_169,onnx::Concat_175" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="104" name="onnx::Resize_176" type="Concat" version="opset1">
+			<data axis="0"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Resize_176" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Resize_176" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="105" name="Convert_894" type="Convert" version="opset1">
+			<data destination_type="f32"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convert_894" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="106" name="Convert_893" type="Convert" version="opset1">
+			<data destination_type="f32"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convert_893" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="107" name="Divide_895" type="Divide" version="opset1">
+			<data auto_broadcast="numpy" m_pythondiv="true"/>
+			<rt_info>
+				<attribute name="fused_names" value="Divide_895" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="108" name="Constant_4015" type="Const" version="opset1">
+			<data element_type="f32" offset="2728488" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="109" name="Add_897" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Add_897" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="110" name="onnx::Concat_179" type="Interpolate" version="opset4">
+			<data antialias="false" coordinate_transformation_mode="asymmetric" cube_coeff="-0.75" mode="nearest" nearest_mode="floor" pads_begin="0, 0, 0, 0" pads_end="0, 0, 0, 0" shape_calculation_mode="sizes"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Concat_179" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="onnx::Concat_179" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="111" name="onnx::Gather_180" type="Concat" version="opset1">
+			<data axis="1"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Gather_180" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>192</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Gather_180" precision="FP32">
+					<dim>1</dim>
+					<dim>448</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="112" name="onnx::Gather_316" type="Const" version="opset1">
+			<data element_type="i64" offset="11122236" shape="100" size="800"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Gather_316" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Gather_316" precision="I64">
+					<dim>100</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="113" name="Constant_975" type="Const" version="opset1">
+			<data element_type="i64" offset="2728464" shape="" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Constant_975" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="114" name="embedding" type="Gather" version="opset8">
+			<data batch_dims="0"/>
+			<rt_info>
+				<attribute name="fused_names" value="embedding" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>448</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>100</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" names="embedding" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="115" name="onnx::Reshape_322" type="Const" version="opset1">
+			<data element_type="i64" offset="11123036" shape="3" size="24"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Reshape_322" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Reshape_322" precision="I64">
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="116" name="onnx::Sub_194" type="Reshape" version="opset1">
+			<data special_zero="true"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Sub_194" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Sub_194" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>4096</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="117" name="Constant_4016" type="Const" version="opset1">
+			<data element_type="f32" offset="11123060" shape="1, 100, 4096" size="1638400"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>4096</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="118" name="onnx::Transpose_195" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Transpose_195" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>4096</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>4096</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Transpose_195" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>4096</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="119" name="Constant_984" type="Const" version="opset1">
+			<data element_type="i64" offset="12761460" shape="3" size="24"/>
+			<rt_info>
+				<attribute name="fused_names" value="Constant_984" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64">
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="120" name="onnx::MatMul_196" type="Transpose" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="onnx::MatMul_196" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>100</dim>
+					<dim>4096</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::MatMul_196" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="121" name="onnx::MatMul_318" type="Const" version="opset1">
+			<data element_type="f32" offset="12761484" shape="4096, 100, 100" size="163840000"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::MatMul_318" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::MatMul_318" precision="FP32">
+					<dim>4096</dim>
+					<dim>100</dim>
+					<dim>100</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="122" name="onnx::Mul_197" type="MatMul" version="opset1">
+			<data transpose_a="false" transpose_b="false"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Mul_197" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>4096</dim>
+					<dim>100</dim>
+					<dim>100</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Mul_197" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="123" name="onnx::ReduceSum_198" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::ReduceSum_198" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::ReduceSum_198" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="124" name="Constant_988" type="Const" version="opset1">
+			<data element_type="i64" offset="2728456" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Constant_988" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="125" name="onnx::Transpose_199" type="ReduceSum" version="opset1">
+			<data keep_dims="false"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Transpose_199" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+					<dim>100</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Transpose_199" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="126" name="onnx::Reshape_327" type="Const" version="opset1">
+			<data element_type="i64" offset="176601484" shape="4" size="32"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Reshape_327" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Reshape_327" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="127" name="onnx::Clip_207" type="Reshape" version="opset1">
+			<data special_zero="true"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Clip_207, onnx::Reshape_200" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4096</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Clip_207" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="128" name="onnx::Sqrt_212" type="Clamp" version="opset1">
+			<data max="3.4028234663852886e+38" min="0"/>
+			<rt_info>
+				<attribute name="fused_names" value="Maximum_1000, onnx::Sqrt_212" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Sqrt_212" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="129" name="distance" type="Sqrt" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="distance" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="distance" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="130" name="onnx::Slice_215" type="ShapeOf" version="opset3">
+			<data output_type="i64"/>
+			<rt_info>
+				<attribute name="fused_names" value="ShapeOf_1031, onnx::Slice_215" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Slice_215" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="131" name="onnx::Slice_217" type="Const" version="opset1">
+			<data element_type="i64" offset="2728448" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_1009, onnx::Concat_219, onnx::Slice_216, onnx::Slice_217, onnx::Slice_218" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Slice_217" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="132" name="onnx::Slice_218" type="Const" version="opset1">
+			<data element_type="i64" offset="2728456" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_1009, onnx::Concat_219, onnx::Slice_216, onnx::Slice_217, onnx::Slice_218" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Slice_218" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="133" name="Broadcast_1009" type="Const" version="opset1">
+			<data element_type="i64" offset="2728464" shape="1" size="8"/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_1009, onnx::Concat_219, onnx::Slice_216, onnx::Slice_217, onnx::Slice_218" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="134" name="onnx::Concat_219" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="" end_mask="0" new_axis_mask="" shrink_axis_mask=""/>
+			<rt_info>
+				<attribute name="fused_names" value="Broadcast_1009, onnx::Concat_219, onnx::Slice_216, onnx::Slice_217, onnx::Slice_218" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="onnx::Concat_219" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="135" name="onnx::Concat_330" type="Const" version="opset1">
+			<data element_type="i64" offset="176601516" shape="2" size="16"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Concat_330" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="onnx::Concat_330" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="136" name="onnx::Resize_221" type="Concat" version="opset1">
+			<data axis="0"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Concat_330, onnx::Resize_221" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Resize_221" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="137" name="Convert_1033" type="Convert" version="opset1">
+			<data destination_type="f32"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convert_1033" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="138" name="Convert_1032" type="Convert" version="opset1">
+			<data destination_type="f32"/>
+			<rt_info>
+				<attribute name="fused_names" value="Convert_1032" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="139" name="Divide_1034" type="Divide" version="opset1">
+			<data auto_broadcast="numpy" m_pythondiv="true"/>
+			<rt_info>
+				<attribute name="fused_names" value="Divide_1034" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="140" name="Constant_4017" type="Const" version="opset1">
+			<data element_type="f32" offset="2728488" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="141" name="Add_1036" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<rt_info>
+				<attribute name="fused_names" value="Add_1036" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="142" name="input_tensor" type="Interpolate" version="opset4">
+			<data antialias="false" coordinate_transformation_mode="pytorch_half_pixel" cube_coeff="-0.75" mode="linear_onnx" nearest_mode="floor" pads_begin="0, 0, 0, 0" pads_end="0, 0, 0, 0" shape_calculation_mode="sizes"/>
+			<rt_info>
+				<attribute name="fused_names" value="input_tensor" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="FP32">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="input_tensor" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="143" name="Split_1119.0" type="Const" version="opset1">
+			<data element_type="i64" offset="176601532" shape="4" size="32"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="144" name="Split_1119.1" type="Const" version="opset1">
+			<data element_type="i64" offset="176601532" shape="4" size="32"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="145" name="Constant_1117" type="Const" version="opset1">
+			<data element_type="f32" offset="176601564" shape="" size="4"/>
+			<rt_info>
+				<attribute name="fused_names" value="Constant_1117" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" precision="FP32"/>
+			</output>
+		</layer>
+		<layer id="146" name="onnx::Conv_259" type="Pad" version="opset1">
+			<data pad_mode="reflect"/>
+			<rt_info>
+				<attribute name="fused_names" value="Split_1119, onnx::Conv_259" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>4</dim>
+				</port>
+				<port id="3" precision="FP32"/>
+			</input>
+			<output>
+				<port id="4" names="onnx::Conv_259" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>288</dim>
+					<dim>288</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="147" name="anomaly_map_generator.blur.kernel" type="Const" version="opset1">
+			<data element_type="f32" offset="176601568" shape="1, 1, 33, 33" size="4356"/>
+			<rt_info>
+				<attribute name="fused_names" value="anomaly_map_generator.blur.kernel" version="0"/>
+			</rt_info>
+			<output>
+				<port id="0" names="anomaly_map_generator.blur.kernel" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>33</dim>
+					<dim>33</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="148" name="onnx::Reshape_260" type="Convolution" version="opset1">
+			<data auto_pad="explicit" dilations="1, 1" pads_begin="0, 0" pads_end="0, 0" strides="1, 1"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Reshape_260" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>288</dim>
+					<dim>288</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>33</dim>
+					<dim>33</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="onnx::Reshape_260" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="149" name="onnx::Gather_225" type="ShapeOf" version="opset3">
+			<data output_type="i64"/>
+			<rt_info>
+				<attribute name="fused_names" value="onnx::Gather_225, onnx::Gather_228, onnx::Gather_231, onnx::Gather_234, onnx::Reshape_265" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="onnx::Gather_225,onnx::Gather_228,onnx::Gather_231,onnx::Gather_234,onnx::Reshape_265" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="150" name="output" type="Reshape" version="opset1">
+			<data special_zero="true"/>
+			<rt_info>
+				<attribute name="fused_names" value="output" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="output" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="151" name="output/sink_port_0" type="Result" version="opset1">
+			<rt_info>
+				<attribute name="fused_names" value="output/sink_port_0" version="0"/>
+			</rt_info>
+			<input>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>256</dim>
+				</port>
+			</input>
+		</layer>
+	</layers>
+	<edges>
+		<edge from-layer="0" from-port="0" to-layer="2" to-port="0"/>
+		<edge from-layer="1" from-port="0" to-layer="2" to-port="1"/>
+		<edge from-layer="2" from-port="2" to-layer="4" to-port="0"/>
+		<edge from-layer="3" from-port="0" to-layer="4" to-port="1"/>
+		<edge from-layer="4" from-port="2" to-layer="5" to-port="0"/>
+		<edge from-layer="5" from-port="1" to-layer="6" to-port="0"/>
+		<edge from-layer="6" from-port="1" to-layer="8" to-port="0"/>
+		<edge from-layer="6" from-port="1" to-layer="16" to-port="1"/>
+		<edge from-layer="7" from-port="0" to-layer="8" to-port="1"/>
+		<edge from-layer="8" from-port="2" to-layer="10" to-port="0"/>
+		<edge from-layer="9" from-port="0" to-layer="10" to-port="1"/>
+		<edge from-layer="10" from-port="2" to-layer="11" to-port="0"/>
+		<edge from-layer="11" from-port="1" to-layer="13" to-port="0"/>
+		<edge from-layer="12" from-port="0" to-layer="13" to-port="1"/>
+		<edge from-layer="13" from-port="2" to-layer="15" to-port="0"/>
+		<edge from-layer="14" from-port="0" to-layer="15" to-port="1"/>
+		<edge from-layer="15" from-port="2" to-layer="16" to-port="0"/>
+		<edge from-layer="16" from-port="2" to-layer="17" to-port="0"/>
+		<edge from-layer="17" from-port="1" to-layer="19" to-port="0"/>
+		<edge from-layer="17" from-port="1" to-layer="27" to-port="1"/>
+		<edge from-layer="18" from-port="0" to-layer="19" to-port="1"/>
+		<edge from-layer="19" from-port="2" to-layer="21" to-port="0"/>
+		<edge from-layer="20" from-port="0" to-layer="21" to-port="1"/>
+		<edge from-layer="21" from-port="2" to-layer="22" to-port="0"/>
+		<edge from-layer="22" from-port="1" to-layer="24" to-port="0"/>
+		<edge from-layer="23" from-port="0" to-layer="24" to-port="1"/>
+		<edge from-layer="24" from-port="2" to-layer="26" to-port="0"/>
+		<edge from-layer="25" from-port="0" to-layer="26" to-port="1"/>
+		<edge from-layer="26" from-port="2" to-layer="27" to-port="0"/>
+		<edge from-layer="27" from-port="2" to-layer="28" to-port="0"/>
+		<edge from-layer="28" from-port="1" to-layer="30" to-port="0"/>
+		<edge from-layer="28" from-port="1" to-layer="68" to-port="0"/>
+		<edge from-layer="28" from-port="1" to-layer="39" to-port="0"/>
+		<edge from-layer="29" from-port="0" to-layer="30" to-port="1"/>
+		<edge from-layer="30" from-port="2" to-layer="32" to-port="0"/>
+		<edge from-layer="31" from-port="0" to-layer="32" to-port="1"/>
+		<edge from-layer="32" from-port="2" to-layer="33" to-port="0"/>
+		<edge from-layer="33" from-port="1" to-layer="35" to-port="0"/>
+		<edge from-layer="34" from-port="0" to-layer="35" to-port="1"/>
+		<edge from-layer="35" from-port="2" to-layer="37" to-port="0"/>
+		<edge from-layer="36" from-port="0" to-layer="37" to-port="1"/>
+		<edge from-layer="37" from-port="2" to-layer="42" to-port="0"/>
+		<edge from-layer="38" from-port="0" to-layer="39" to-port="1"/>
+		<edge from-layer="39" from-port="2" to-layer="41" to-port="0"/>
+		<edge from-layer="40" from-port="0" to-layer="41" to-port="1"/>
+		<edge from-layer="41" from-port="2" to-layer="42" to-port="1"/>
+		<edge from-layer="42" from-port="2" to-layer="43" to-port="0"/>
+		<edge from-layer="43" from-port="1" to-layer="45" to-port="0"/>
+		<edge from-layer="43" from-port="1" to-layer="53" to-port="1"/>
+		<edge from-layer="44" from-port="0" to-layer="45" to-port="1"/>
+		<edge from-layer="45" from-port="2" to-layer="47" to-port="0"/>
+		<edge from-layer="46" from-port="0" to-layer="47" to-port="1"/>
+		<edge from-layer="47" from-port="2" to-layer="48" to-port="0"/>
+		<edge from-layer="48" from-port="1" to-layer="50" to-port="0"/>
+		<edge from-layer="49" from-port="0" to-layer="50" to-port="1"/>
+		<edge from-layer="50" from-port="2" to-layer="52" to-port="0"/>
+		<edge from-layer="51" from-port="0" to-layer="52" to-port="1"/>
+		<edge from-layer="52" from-port="2" to-layer="53" to-port="0"/>
+		<edge from-layer="53" from-port="2" to-layer="54" to-port="0"/>
+		<edge from-layer="54" from-port="1" to-layer="70" to-port="0"/>
+		<edge from-layer="54" from-port="1" to-layer="79" to-port="0"/>
+		<edge from-layer="54" from-port="1" to-layer="67" to-port="0"/>
+		<edge from-layer="54" from-port="1" to-layer="55" to-port="0"/>
+		<edge from-layer="55" from-port="1" to-layer="59" to-port="0"/>
+		<edge from-layer="55" from-port="1" to-layer="63" to-port="0"/>
+		<edge from-layer="56" from-port="0" to-layer="59" to-port="1"/>
+		<edge from-layer="57" from-port="0" to-layer="59" to-port="2"/>
+		<edge from-layer="58" from-port="0" to-layer="59" to-port="3"/>
+		<edge from-layer="59" from-port="4" to-layer="61" to-port="0"/>
+		<edge from-layer="60" from-port="0" to-layer="61" to-port="1"/>
+		<edge from-layer="61" from-port="2" to-layer="67" to-port="1"/>
+		<edge from-layer="61" from-port="2" to-layer="62" to-port="0"/>
+		<edge from-layer="62" from-port="1" to-layer="64" to-port="0"/>
+		<edge from-layer="63" from-port="1" to-layer="64" to-port="1"/>
+		<edge from-layer="64" from-port="2" to-layer="66" to-port="0"/>
+		<edge from-layer="65" from-port="0" to-layer="66" to-port="1"/>
+		<edge from-layer="66" from-port="2" to-layer="67" to-port="2"/>
+		<edge from-layer="67" from-port="3" to-layer="68" to-port="1"/>
+		<edge from-layer="68" from-port="2" to-layer="100" to-port="0"/>
+		<edge from-layer="68" from-port="2" to-layer="111" to-port="0"/>
+		<edge from-layer="69" from-port="0" to-layer="70" to-port="1"/>
+		<edge from-layer="70" from-port="2" to-layer="72" to-port="0"/>
+		<edge from-layer="71" from-port="0" to-layer="72" to-port="1"/>
+		<edge from-layer="72" from-port="2" to-layer="73" to-port="0"/>
+		<edge from-layer="73" from-port="1" to-layer="75" to-port="0"/>
+		<edge from-layer="74" from-port="0" to-layer="75" to-port="1"/>
+		<edge from-layer="75" from-port="2" to-layer="77" to-port="0"/>
+		<edge from-layer="76" from-port="0" to-layer="77" to-port="1"/>
+		<edge from-layer="77" from-port="2" to-layer="82" to-port="0"/>
+		<edge from-layer="78" from-port="0" to-layer="79" to-port="1"/>
+		<edge from-layer="79" from-port="2" to-layer="81" to-port="0"/>
+		<edge from-layer="80" from-port="0" to-layer="81" to-port="1"/>
+		<edge from-layer="81" from-port="2" to-layer="82" to-port="1"/>
+		<edge from-layer="82" from-port="2" to-layer="83" to-port="0"/>
+		<edge from-layer="83" from-port="1" to-layer="93" to-port="1"/>
+		<edge from-layer="83" from-port="1" to-layer="85" to-port="0"/>
+		<edge from-layer="84" from-port="0" to-layer="85" to-port="1"/>
+		<edge from-layer="85" from-port="2" to-layer="87" to-port="0"/>
+		<edge from-layer="86" from-port="0" to-layer="87" to-port="1"/>
+		<edge from-layer="87" from-port="2" to-layer="88" to-port="0"/>
+		<edge from-layer="88" from-port="1" to-layer="90" to-port="0"/>
+		<edge from-layer="89" from-port="0" to-layer="90" to-port="1"/>
+		<edge from-layer="90" from-port="2" to-layer="92" to-port="0"/>
+		<edge from-layer="91" from-port="0" to-layer="92" to-port="1"/>
+		<edge from-layer="92" from-port="2" to-layer="93" to-port="0"/>
+		<edge from-layer="93" from-port="2" to-layer="94" to-port="0"/>
+		<edge from-layer="94" from-port="1" to-layer="95" to-port="0"/>
+		<edge from-layer="94" from-port="1" to-layer="110" to-port="0"/>
+		<edge from-layer="95" from-port="1" to-layer="106" to-port="0"/>
+		<edge from-layer="95" from-port="1" to-layer="99" to-port="0"/>
+		<edge from-layer="96" from-port="0" to-layer="99" to-port="1"/>
+		<edge from-layer="97" from-port="0" to-layer="99" to-port="2"/>
+		<edge from-layer="98" from-port="0" to-layer="99" to-port="3"/>
+		<edge from-layer="99" from-port="4" to-layer="104" to-port="0"/>
+		<edge from-layer="100" from-port="1" to-layer="103" to-port="0"/>
+		<edge from-layer="101" from-port="0" to-layer="103" to-port="1"/>
+		<edge from-layer="102" from-port="0" to-layer="103" to-port="2"/>
+		<edge from-layer="103" from-port="3" to-layer="104" to-port="1"/>
+		<edge from-layer="104" from-port="2" to-layer="110" to-port="1"/>
+		<edge from-layer="104" from-port="2" to-layer="105" to-port="0"/>
+		<edge from-layer="105" from-port="1" to-layer="107" to-port="0"/>
+		<edge from-layer="106" from-port="1" to-layer="107" to-port="1"/>
+		<edge from-layer="107" from-port="2" to-layer="109" to-port="0"/>
+		<edge from-layer="108" from-port="0" to-layer="109" to-port="1"/>
+		<edge from-layer="109" from-port="2" to-layer="110" to-port="2"/>
+		<edge from-layer="110" from-port="3" to-layer="111" to-port="1"/>
+		<edge from-layer="111" from-port="2" to-layer="114" to-port="0"/>
+		<edge from-layer="112" from-port="0" to-layer="114" to-port="1"/>
+		<edge from-layer="113" from-port="0" to-layer="114" to-port="2"/>
+		<edge from-layer="114" from-port="3" to-layer="116" to-port="0"/>
+		<edge from-layer="115" from-port="0" to-layer="116" to-port="1"/>
+		<edge from-layer="116" from-port="2" to-layer="118" to-port="0"/>
+		<edge from-layer="117" from-port="0" to-layer="118" to-port="1"/>
+		<edge from-layer="118" from-port="2" to-layer="120" to-port="0"/>
+		<edge from-layer="119" from-port="0" to-layer="120" to-port="1"/>
+		<edge from-layer="120" from-port="2" to-layer="122" to-port="0"/>
+		<edge from-layer="120" from-port="2" to-layer="123" to-port="1"/>
+		<edge from-layer="121" from-port="0" to-layer="122" to-port="1"/>
+		<edge from-layer="122" from-port="2" to-layer="123" to-port="0"/>
+		<edge from-layer="123" from-port="2" to-layer="125" to-port="0"/>
+		<edge from-layer="124" from-port="0" to-layer="125" to-port="1"/>
+		<edge from-layer="125" from-port="2" to-layer="127" to-port="0"/>
+		<edge from-layer="126" from-port="0" to-layer="127" to-port="1"/>
+		<edge from-layer="127" from-port="2" to-layer="128" to-port="0"/>
+		<edge from-layer="128" from-port="1" to-layer="129" to-port="0"/>
+		<edge from-layer="129" from-port="1" to-layer="142" to-port="0"/>
+		<edge from-layer="129" from-port="1" to-layer="130" to-port="0"/>
+		<edge from-layer="130" from-port="1" to-layer="134" to-port="0"/>
+		<edge from-layer="130" from-port="1" to-layer="138" to-port="0"/>
+		<edge from-layer="131" from-port="0" to-layer="134" to-port="1"/>
+		<edge from-layer="132" from-port="0" to-layer="134" to-port="2"/>
+		<edge from-layer="133" from-port="0" to-layer="134" to-port="3"/>
+		<edge from-layer="134" from-port="4" to-layer="136" to-port="0"/>
+		<edge from-layer="135" from-port="0" to-layer="136" to-port="1"/>
+		<edge from-layer="136" from-port="2" to-layer="137" to-port="0"/>
+		<edge from-layer="136" from-port="2" to-layer="142" to-port="1"/>
+		<edge from-layer="137" from-port="1" to-layer="139" to-port="0"/>
+		<edge from-layer="138" from-port="1" to-layer="139" to-port="1"/>
+		<edge from-layer="139" from-port="2" to-layer="141" to-port="0"/>
+		<edge from-layer="140" from-port="0" to-layer="141" to-port="1"/>
+		<edge from-layer="141" from-port="2" to-layer="142" to-port="2"/>
+		<edge from-layer="142" from-port="3" to-layer="146" to-port="0"/>
+		<edge from-layer="142" from-port="3" to-layer="149" to-port="0"/>
+		<edge from-layer="143" from-port="0" to-layer="146" to-port="1"/>
+		<edge from-layer="144" from-port="0" to-layer="146" to-port="2"/>
+		<edge from-layer="145" from-port="0" to-layer="146" to-port="3"/>
+		<edge from-layer="146" from-port="4" to-layer="148" to-port="0"/>
+		<edge from-layer="147" from-port="0" to-layer="148" to-port="1"/>
+		<edge from-layer="148" from-port="2" to-layer="150" to-port="0"/>
+		<edge from-layer="149" from-port="1" to-layer="150" to-port="1"/>
+		<edge from-layer="150" from-port="2" to-layer="151" to-port="0"/>
+	</edges>
+	<meta_data>
+		<MO_version value="2022.1.0-7019-cdb9bec7210-releases/2022/1"/>
+		<Runtime_version value="2022.1.0-7019-cdb9bec7210-releases/2022/1"/>
+		<legacy_path value="False"/>
+		<cli_parameters>
+			<caffe_parser_path value="DIR"/>
+			<compress_fp16 value="False"/>
+			<data_type value="float"/>
+			<disable_nhwc_to_nchw value="False"/>
+			<disable_omitting_optional value="False"/>
+			<disable_resnet_optimization value="False"/>
+			<disable_weights_compression value="False"/>
+			<enable_concat_optimization value="False"/>
+			<enable_flattening_nested_params value="False"/>
+			<enable_ssd_gluoncv value="False"/>
+			<extensions value="DIR"/>
+			<framework value="onnx"/>
+			<freeze_placeholder_with_value value="{}"/>
+			<input_model value="DIR/model.onnx"/>
+			<input_model_is_text value="False"/>
+			<k value="DIR/CustomLayersMapping.xml"/>
+			<layout value="()"/>
+			<layout_values value="{}"/>
+			<legacy_mxnet_model value="False"/>
+			<log_level value="ERROR"/>
+			<mean_scale_values value="{}"/>
+			<mean_values value="()"/>
+			<model_name value="model"/>
+			<output_dir value="DIR"/>
+			<placeholder_data_types value="{}"/>
+			<progress value="False"/>
+			<remove_memory value="False"/>
+			<remove_output_softmax value="False"/>
+			<reverse_input_channels value="False"/>
+			<save_params_from_nd value="False"/>
+			<scale_values value="()"/>
+			<silent value="False"/>
+			<source_layout value="()"/>
+			<static_shape value="False"/>
+			<stream_output value="False"/>
+			<target_layout value="()"/>
+			<transform value=""/>
+			<use_legacy_frontend value="False"/>
+			<use_new_frontend value="False"/>
+			<unset unset_cli_parameters="batch, counts, disable_fusing, finegrain_fusing, input, input_checkpoint, input_meta_graph, input_proto, input_shape, input_symbol, mean_file, mean_file_offsets, nd_prefix_name, output, placeholder_shapes, pretrained_model_name, saved_model_dir, saved_model_tags, scale, tensorboard_logdir, tensorflow_custom_layer_libraries, tensorflow_custom_operations_config_update, tensorflow_object_detection_api_pipeline_config, tensorflow_use_custom_operations_config, transformations_config"/>
+		</cli_parameters>
+	</meta_data>
+</net>

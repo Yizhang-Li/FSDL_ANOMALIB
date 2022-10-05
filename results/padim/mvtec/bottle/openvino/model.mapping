@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<mapping>
+	<map>
+		<framework name="input" output_port_id="input" />
+		<IR name="input" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_268" output_port_id="onnx::Conv_268" />
+		<IR name="onnx::Conv_268" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.4" output_port_id="input.4" />
+		<IR name="input.4" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::MaxPool_97" output_port_id="onnx::MaxPool_97" />
+		<IR name="onnx::MaxPool_97" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="input.8" output_port_id="input.8" />
+		<IR name="input.8" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_271" output_port_id="onnx::Conv_271" />
+		<IR name="onnx::Conv_271" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.16" output_port_id="input.16" />
+		<IR name="input.16" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_101" output_port_id="onnx::Conv_101" />
+		<IR name="onnx::Conv_101" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_274" output_port_id="onnx::Conv_274" />
+		<IR name="onnx::Conv_274" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_273" output_port_id="onnx::Add_273" />
+		<IR name="onnx::Add_273" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Relu_104" output_port_id="onnx::Relu_104" />
+		<IR name="onnx::Relu_104" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="input.24" output_port_id="input.24" />
+		<IR name="input.24" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_277" output_port_id="onnx::Conv_277" />
+		<IR name="onnx::Conv_277" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.32" output_port_id="input.32" />
+		<IR name="input.32" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_108" output_port_id="onnx::Conv_108" />
+		<IR name="onnx::Conv_108" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_280" output_port_id="onnx::Conv_280" />
+		<IR name="onnx::Conv_280" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_279" output_port_id="onnx::Add_279" />
+		<IR name="onnx::Add_279" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Relu_111" output_port_id="onnx::Relu_111" />
+		<IR name="onnx::Relu_111" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="input.40" output_port_id="input.40" />
+		<IR name="input.40" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_283" output_port_id="onnx::Conv_283" />
+		<IR name="onnx::Conv_283" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.48" output_port_id="input.48" />
+		<IR name="input.48" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_115" output_port_id="onnx::Conv_115" />
+		<IR name="onnx::Conv_115" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_286" output_port_id="onnx::Conv_286" />
+		<IR name="onnx::Conv_286" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_285" output_port_id="onnx::Add_285" />
+		<IR name="onnx::Add_285" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_289" output_port_id="onnx::Conv_289" />
+		<IR name="onnx::Conv_289" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_288" output_port_id="onnx::Add_288" />
+		<IR name="onnx::Add_288" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Relu_120" output_port_id="onnx::Relu_120" />
+		<IR name="onnx::Relu_120" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="input.60" output_port_id="input.60" />
+		<IR name="input.60" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_292" output_port_id="onnx::Conv_292" />
+		<IR name="onnx::Conv_292" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.68" output_port_id="input.68" />
+		<IR name="input.68" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_124" output_port_id="onnx::Conv_124" />
+		<IR name="onnx::Conv_124" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_295" output_port_id="onnx::Conv_295" />
+		<IR name="onnx::Conv_295" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_294" output_port_id="onnx::Add_294" />
+		<IR name="onnx::Add_294" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Relu_127" output_port_id="onnx::Relu_127" />
+		<IR name="onnx::Relu_127" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="input.76" output_port_id="input.76" />
+		<IR name="input.76" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_150" output_port_id="onnx::Slice_150" />
+		<IR name="onnx::Slice_150" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_152" output_port_id="onnx::Slice_152" />
+		<IR name="onnx::Slice_152" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_153" output_port_id="onnx::Slice_153" />
+		<IR name="onnx::Slice_153" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_154" output_port_id="onnx::Concat_154" />
+		<IR name="onnx::Concat_154" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_315" output_port_id="onnx::Concat_315" />
+		<IR name="onnx::Concat_315" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Resize_156" output_port_id="onnx::Resize_156" />
+		<IR name="onnx::Resize_156" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_159" output_port_id="onnx::Concat_159" />
+		<IR name="onnx::Concat_159" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="onnx::Shape_160" output_port_id="onnx::Shape_160" />
+		<IR name="onnx::Shape_160" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_298" output_port_id="onnx::Conv_298" />
+		<IR name="onnx::Conv_298" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.84" output_port_id="input.84" />
+		<IR name="input.84" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_131" output_port_id="onnx::Conv_131" />
+		<IR name="onnx::Conv_131" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_301" output_port_id="onnx::Conv_301" />
+		<IR name="onnx::Conv_301" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_300" output_port_id="onnx::Add_300" />
+		<IR name="onnx::Add_300" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_304" output_port_id="onnx::Conv_304" />
+		<IR name="onnx::Conv_304" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_303" output_port_id="onnx::Add_303" />
+		<IR name="onnx::Add_303" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Relu_136" output_port_id="onnx::Relu_136" />
+		<IR name="onnx::Relu_136" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="input.96" output_port_id="input.96" />
+		<IR name="input.96" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_307" output_port_id="onnx::Conv_307" />
+		<IR name="onnx::Conv_307" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="input.104" output_port_id="input.104" />
+		<IR name="input.104" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_140" output_port_id="onnx::Conv_140" />
+		<IR name="onnx::Conv_140" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_310" output_port_id="onnx::Conv_310" />
+		<IR name="onnx::Conv_310" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Add_309" output_port_id="onnx::Add_309" />
+		<IR name="onnx::Add_309" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Relu_143" output_port_id="onnx::Relu_143" />
+		<IR name="onnx::Relu_143" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="layer_embedding" output_port_id="layer_embedding" />
+		<IR name="layer_embedding" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_170" output_port_id="onnx::Slice_170" />
+		<IR name="onnx::Slice_170" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_172" output_port_id="onnx::Slice_172" />
+		<IR name="onnx::Slice_172" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_173" output_port_id="onnx::Slice_173" />
+		<IR name="onnx::Slice_173" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_174" output_port_id="onnx::Concat_174" />
+		<IR name="onnx::Concat_174" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_161" output_port_id="onnx::Gather_164" />
+		<IR name="onnx::Gather_161" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_161" output_port_id="onnx::Gather_161" />
+		<IR name="onnx::Gather_161" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="Gather_3525" output_port_id="onnx::Concat_175" />
+		<IR name="Gather_3525" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="Gather_3525" output_port_id="onnx::Cast_169" />
+		<IR name="Gather_3525" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="onnx::Resize_176" output_port_id="onnx::Resize_176" />
+		<IR name="onnx::Resize_176" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_179" output_port_id="onnx::Concat_179" />
+		<IR name="onnx::Concat_179" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_180" output_port_id="onnx::Gather_180" />
+		<IR name="onnx::Gather_180" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_316" output_port_id="onnx::Gather_316" />
+		<IR name="onnx::Gather_316" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="embedding" output_port_id="embedding" />
+		<IR name="embedding" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="onnx::Reshape_322" output_port_id="onnx::Reshape_322" />
+		<IR name="onnx::Reshape_322" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Sub_194" output_port_id="onnx::Sub_194" />
+		<IR name="onnx::Sub_194" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Transpose_195" output_port_id="onnx::Transpose_195" />
+		<IR name="onnx::Transpose_195" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::MatMul_196" output_port_id="onnx::MatMul_196" />
+		<IR name="onnx::MatMul_196" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::MatMul_318" output_port_id="onnx::MatMul_318" />
+		<IR name="onnx::MatMul_318" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Mul_197" output_port_id="onnx::Mul_197" />
+		<IR name="onnx::Mul_197" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::ReduceSum_198" output_port_id="onnx::ReduceSum_198" />
+		<IR name="onnx::ReduceSum_198" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Transpose_199" output_port_id="onnx::Transpose_199" />
+		<IR name="onnx::Transpose_199" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Reshape_327" output_port_id="onnx::Reshape_327" />
+		<IR name="onnx::Reshape_327" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Clip_207" output_port_id="onnx::Clip_207" />
+		<IR name="onnx::Clip_207" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Sqrt_212" output_port_id="onnx::Sqrt_212" />
+		<IR name="onnx::Sqrt_212" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="distance" output_port_id="distance" />
+		<IR name="distance" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_215" output_port_id="onnx::Slice_215" />
+		<IR name="onnx::Slice_215" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_217" output_port_id="onnx::Slice_217" />
+		<IR name="onnx::Slice_217" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Slice_218" output_port_id="onnx::Slice_218" />
+		<IR name="onnx::Slice_218" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_219" output_port_id="onnx::Concat_219" />
+		<IR name="onnx::Concat_219" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="onnx::Concat_330" output_port_id="onnx::Concat_330" />
+		<IR name="onnx::Concat_330" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Resize_221" output_port_id="onnx::Resize_221" />
+		<IR name="onnx::Resize_221" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="input_tensor" output_port_id="input_tensor" />
+		<IR name="input_tensor" output_port_id="3" />
+	</map>
+	<map>
+		<framework name="onnx::Conv_259" output_port_id="onnx::Conv_259" />
+		<IR name="onnx::Conv_259" output_port_id="4" />
+	</map>
+	<map>
+		<framework name="anomaly_map_generator.blur.kernel" output_port_id="anomaly_map_generator.blur.kernel" />
+		<IR name="anomaly_map_generator.blur.kernel" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="onnx::Reshape_260" output_port_id="onnx::Reshape_260" />
+		<IR name="onnx::Reshape_260" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_225" output_port_id="onnx::Reshape_265" />
+		<IR name="onnx::Gather_225" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_225" output_port_id="onnx::Gather_225" />
+		<IR name="onnx::Gather_225" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_225" output_port_id="onnx::Gather_228" />
+		<IR name="onnx::Gather_225" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_225" output_port_id="onnx::Gather_231" />
+		<IR name="onnx::Gather_225" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="onnx::Gather_225" output_port_id="onnx::Gather_234" />
+		<IR name="onnx::Gather_225" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="output" output_port_id="output" />
+		<IR name="output" output_port_id="2" />
+	</map>
+</mapping>
