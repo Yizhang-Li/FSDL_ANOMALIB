@@ -1,7 +1,6 @@
 import pandas as pd
 
 pd.set_option('display.max_columns', None)
-import lightgbm as lgb
 import joblib
 import boto3
 import json
@@ -10,7 +9,7 @@ s3 = boto3.client('s3')
 
 import os
 import io
-from app.model import MLPipeline
+
 import datetime
 from argparse import ArgumentParser, Namespace
 from importlib import import_module
@@ -131,5 +130,7 @@ def handler(event, context):
     print('Prediction Saved')
     return True
 
+if __name__ == 'main':
+    print('Run MAIN ...')
 
 
