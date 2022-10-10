@@ -1,97 +1,135 @@
 import pandas as pd
+
 pd.set_option('display.max_columns', None)
 import lightgbm as lgb
 import joblib
 import boto3
+import json
+
 s3 = boto3.client('s3')
+
 import os
 import io
 from app.model import MLPipeline
 import datetime
+from argparse import ArgumentParser, Namespace
+from importlib import import_module
+from pathlib import Path
+from typing import Optional, Tuple, Dict
+import pickle
+import numpy as np
+from anomalib.deploy import Inferencer
 
+DEFAULT_CONFIG_PATH = Path("tools/config/padim/config.yaml")
+DEFAULT_WEIGHT_PATH = Path("results/padim/mvtec/bottle/openvino/model.bin")
+DEFAULT_META_DATA_path = Path("results/padim/mvtec/bottle/openvino/meta_data.json")
 
-running_locally = os.getenv('RUNNING_LOCAL') is not None
-if running_locally:
-    print("Running locally: ", running_locally)
-    from pathlib import Path
-    if Path.cwd().name != 'deploy-python-ml':
-        raise Exception("Please run this from within the top directory of `deploy-python-ml`")
-    if os.getenv('FILENAME') is None:
-        print("FILENAME was not given, reading from model-dev/data")
+def get_inferencer(config_path = DEFAULT_CONFIG_PATH , weight_path = DEFAULT_WEIGHT_PATH, meta_data_path = meta_data_path ):
+    """Parse args and open inferencer.
+    Args:
+        config_path (Path): Path to model configuration file or the name of the model.
+        weight_path (Path): Path to model weights.
+        meta_data_path (Optional[Path], optional): Metadata is required for OpenVINO models. Defaults to None.
+    Raises:
+        ValueError: If unsupported model weight is passed.
+    Returns:
+        Inferencer: Torch or OpenVINO inferencer.
+    """
 
+    # Get the inferencer. We use .ckpt extension for Torch models and (onnx, bin)
+    # for the openvino models.
+    extension = weight_path.suffix
+    module = import_module("anomalib.deploy")
+    if extension in (".ckpt"):
+        torch_inferencer = getattr(module, "TorchInferencer")
+        inferencer = torch_inferencer(config=config_path, model_source=weight_path, meta_data_path=meta_data_path)
 
-def load_model():
-    with open("app/model/tfidf_vectorizer.joblib", "rb") as filename:
-        tfidf_vectorizer = joblib.load(filename)
+    elif extension in (".onnx", ".bin", ".xml"):
+        openvino_inferencer = getattr(module, "OpenVINOInferencer")
+        inferencer = openvino_inferencer(config=config_path, path=weight_path, meta_data_path=meta_data_path)
 
-    with open("app/model/lightgbm-classifier.joblib", "rb") as filename:
-        classifier = joblib.load(filename)
-
-    model = MLPipeline(classifier, tfidf_vectorizer)
-    return model
-
-
-def load_s3_data(filename, bucket=None):
-    if running_locally:
-        print("-- Loading local data --")
-        return pd.read_csv(filename)
     else:
-        print("-- Loading s3 data --")
-        # load test data
-        key = filename
-        print("Requesting object from Bucket: {} and Key: {}".format(bucket, key))
-        obj = s3.get_object(Bucket=bucket, Key=key)
-        print("Got object from S3")
-        data = io.StringIO(obj['Body'].read().decode('utf-8')) 
-        return pd.read_csv(data)
+        raise ValueError(
+            f"Model extension is not supported. Torch Inferencer exptects a .ckpt file,"
+            f"OpenVINO Inferencer expects either .onnx, .bin or .xml file. Got {extension}"
+        )
+    return inferencer
+
+def infer(image, inferencer):
+    """Inference function, return anomaly map, score, heat map, prediction mask ans visualisation.
+    Args:
+        image (np.ndarray): image to compute
+        inferencer (Inferencer): model inferencer
+    Returns:
+        Tuple[np.ndarray, float, np.ndarray, np.ndarray, np.ndarray]:
+        heat_map, pred_mask, segmentation result.
+    """
+    # Perform inference for the given image.
+    predictions = inferencer.predict(image=image)
+    return (predictions.heat_map, predictions.pred_mask, predictions.segmentations)
 
 
-def save_s3_results(df, bucket=None, key='predictions.csv'):
-    now_dt = str(datetime.datetime.now())
-    if running_locally:
-        print("-- saving local results --")
-        os.makedirs('tmp', exist_ok=True)
-        local_filename = f'tmp/{key}_{now_dt}'
-        print('Local file: ', local_filename)
-        df.to_csv(local_filename, index=False)
-    else:
-        s3_client = boto3.client('s3')
-        csv_buffer = io.StringIO()
-        df.to_csv(csv_buffer, index=False)
-        s3_client.put_object(Bucket=bucket, Key=key, Body=csv_buffer.getvalue())
-        print(f'file written to {bucket} --{key}')
+def read_s3_image(bucket,key):
+    """Read image array in s3.
+    bucket[str]:fsdl-anomalib
+    key[str]:test_image_{key_name}.pkl
+    """
+    s3 = boto3.client('s3')
+   
+    with io.BytesIO() as data:
+        s3.Bucket(bucket).download_fileobj(key, data)
+        data.seek(0)  # move back to the beginning after writing
+        image = pickle.load(data)
+    print(f'file loaded')
+    return image
+
+def save_s3_prediction(bucket,key,predictions):
+    """SAVE prediction produced by AWS Lambda.
+    Prediction[dict]: '
+        - 'heat_map': predictions.heat_map,
+        - 'red_mask': predictions.pred_mask
+        - 'segmentations': predictions.segmentations
+    bucket[str]:fsdl-anomalib-prediction
+    key[str]:test_image_prediction_{key_name}.pkl
+    """
+    s3 = boto3.client('s3')
+
+    pred_io = io.BytesIO()
+    pickle.dump(predictions, pred_io)
+    pred_io.seek(0)
+    s3.upload_fileobj(pred_io, bucket, key)
+    print(f'file loaded')
     return True
 
 
 def handler(event, context):
+    """
+    AWS Lambda handler function: https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
+    Triggered by s3 file upload 
+    https://stackoverflow.com/questions/43987732/aws-lambda-and-multipart-upload-to-from-s3
+    """
     print("-- Running ML --")
-    if running_locally:
-        bucket=None
-        key = os.getenv('FILENAME', 'model-dev/data/emotion-labels-test.csv')
-    else:
-        # s3 bucket
-        bucket = event['Records'][0]['s3']['bucket']['name']    
-        # key = filename = s3 path
-        key = event['Records'][0]['s3']['object']['key']
-        
+
+    # s3 bucket
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    # key = filename = s3 path
+    key = event['Records'][0]['s3']['object']['key']
+
     # load the data
-    df = load_s3_data(filename=key, bucket=bucket)
-    print(df.head())
+    image = read_s3_image(bucket,key)
+    print('Image Loaded')
+    # setup inferencer
+    gradio_inferencer = get_inferencer(DEFAULT_CONFIG_PATH, DEFAULT_WEIGHT_PATH, DEFAULT_META_DATA_path)
 
-    model = load_model()
-    preds = model.predict(df['text'])
-    df['pred'] = preds
-    print('-- Predictions --')
-    print(df.head())
+    heat_map, pred_mask, segmentations = infer(image, gradio_inferencer)
+    print('Set up inferencer')
+    
+    # save the results
+    key_pred = key.replace('test_image','test_image_prediction')
+    predictions = dict(zip(['heat_map','red_mask','segmentations'],[heat_map, pred_mask, segmentations]))
+    save_s3_prediction('fsdl-anomalib-prediction',key_pred,predictions)
+    print('Prediction Saved')
+    return True
 
-    save_s3_results(df, bucket=bucket)
-
-    return "Success :)"
-
-
-if __name__ == "__main__":
-    print("NLP ML App")
-    if running_locally:
-        handler(None, None)
 
 

@@ -8,5 +8,7 @@ __pycache__
 datasets/
 app/frontend/
 app/model/
+app/preprocessing/
+app/main.py
 images/
 .tar.gz

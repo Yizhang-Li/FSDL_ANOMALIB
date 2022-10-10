@@ -19,11 +19,11 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     cmake \
     libcurl4
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
-    ffmpeg=7:4.2.7-0ubuntu0.1 \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && \
+#    DEBIAN_FRONTEND="noninteractive" apt-get install --no-install-recommends -y \
+#    ffmpeg=7:4.2.7-0ubuntu0.1 \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/*
 
 # Install libgomp for lightgbm
 RUN conda install -c conda-forge libgomp -y
@@ -57,11 +57,11 @@ COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
 COPY install_requirements.sh /home/app/
 RUN chmod 755 /home/app/install_requirements.sh
 RUN /home/app/install_requirements.sh
-RUN python -m spacy download en_core_web_lg
+#RUN python -m spacy download en_core_web_lg
 
 
 COPY entry.sh /home/
 RUN chmod 755 /home/entry.sh
 ENTRYPOINT [ "/home/entry.sh" ]
 RUN python -m app.main
-CMD [ "app.app.handler" ]
+CMD [ "app.main.handler" ]
