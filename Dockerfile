@@ -63,5 +63,5 @@ RUN /home/app/install_requirements.sh
 COPY entry.sh /home/
 RUN chmod 755 /home/entry.sh
 ENTRYPOINT [ "/home/entry.sh" ]
-RUN python -m app.main
-CMD [ "app.main.handler" ]
+#RUN python -m app.main
+CMD [ "app.handler" ]
