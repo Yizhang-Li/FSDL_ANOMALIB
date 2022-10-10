@@ -1,0 +1,12 @@
+.idea
+.pytest_cache
+.tox
+.vscode
+.gitignore
+.md
+__pycache__
+datasets/
+app/frontend/
+app/model/
+images/
+.tar.gz

@@ -64,4 +64,4 @@ COPY entry.sh /home/
 RUN chmod 755 /home/entry.sh
 ENTRYPOINT [ "/home/entry.sh" ]
 RUN python -m app.main
-CMD [ "app.main.handler" ]
+CMD [ "app.app.handler" ]

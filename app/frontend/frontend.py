@@ -20,7 +20,7 @@ import pickle
 import uuid
 import time
 #from anomalib.deploy import Inferencer
-from botocore.errorfactory import ClientError
+#from botocore.errorfactory import ClientError
 from datetime import timedelta
 
 title = "Anomaly Detection"
@@ -77,8 +77,8 @@ def read_s3_prediction(bucket,key,timeout = 120):
         try:
             s3.head_object(bucket, key)
             exist_flag = True
-        except ClientError:
-            time.sleep(1)
+        except:
+            time.sleep(2)
             pass
 
         if wait_until < datetime.now():
@@ -148,6 +148,6 @@ if __name__ == "__main__":
         description=description,
         article=article,
     )
-    app, local_url, share_url = app.launch(server_port=8500, server_name="0.0.0.0")
+    app, local_url, share_url = app.launch(server_port=8500, server_name="0.0.0.0",share = True, debug = True)
     print(share_url)
     # fuser 8500/tcp
