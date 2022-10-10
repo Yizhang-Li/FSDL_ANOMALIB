@@ -72,7 +72,7 @@ def read_s3_prediction(bucket,key,timeout = 120):
     """
     s3 = boto3.client('s3')
     exist_flag = False
-    wait_until = datetime.now() + timedelta(seconds = timeout)
+    wait_until = datetime.datetime.now() + timedelta(seconds = timeout)
     while not exist_flag:
         try:
             s3.head_object(bucket, key)
@@ -81,7 +81,7 @@ def read_s3_prediction(bucket,key,timeout = 120):
             time.sleep(2)
             pass
 
-        if wait_until < datetime.now():
+        if wait_until < datetime.datetime.now():
             exist_flag = True
             return {'heat_map':np.empty([16,16]),
                     'red_mask':np.empty([16,16]),
