@@ -19,11 +19,12 @@ import pickle
 import numpy as np
 from anomalib.deploy import Inferencer
 
-DEFAULT_CONFIG_PATH = Path("tools/config/padim/config.yaml")
-DEFAULT_WEIGHT_PATH = Path("results/padim/mvtec/bottle/openvino/model.bin")
-DEFAULT_META_DATA_path = Path("results/padim/mvtec/bottle/openvino/meta_data.json")
+DEFAULT_CONFIG_PATH = Path("app/config.yaml")
+#DEFAULT_WEIGHT_PATH = Path("results/padim/mvtec/bottle/weights/model.ckpt")
+DEFAULT_WEIGHT_PATH = Path("app/model.bin")
+DEFAULT_META_DATA_path = Path("app/meta_data.json")
 
-def get_inferencer(config_path = DEFAULT_CONFIG_PATH , weight_path = DEFAULT_WEIGHT_PATH, meta_data_path = meta_data_path ):
+def get_inferencer(config_path = DEFAULT_CONFIG_PATH , weight_path = DEFAULT_WEIGHT_PATH, meta_data_path = DEFAULT_META_DATA_path):
     """Parse args and open inferencer.
     Args:
         config_path (Path): Path to model configuration file or the name of the model.
@@ -73,8 +74,8 @@ def read_s3_image(bucket,key):
     bucket[str]:fsdl-anomalib
     key[str]:test_image_{key_name}.pkl
     """
-    s3 = boto3.client('s3')
-   
+    s3 = boto3.resource('s3')
+    print(bucket,key)
     with io.BytesIO() as data:
         s3.Bucket(bucket).download_fileobj(key, data)
         data.seek(0)  # move back to the beginning after writing
@@ -91,13 +92,16 @@ def save_s3_prediction(bucket,key,predictions):
     bucket[str]:fsdl-anomalib-prediction
     key[str]:test_image_prediction_{key_name}.pkl
     """
-    s3 = boto3.client('s3')
-
-    pred_io = io.BytesIO()
-    pickle.dump(predictions, pred_io)
-    pred_io.seek(0)
-    s3.upload_fileobj(pred_io, bucket, key)
-    print(f'file loaded')
+    s3 = boto3.resource('s3')
+    
+    with io.BytesIO() as pred_io:
+        pickle.dump(predictions, pred_io)
+        pred_io.seek(0)
+        s3.Bucket(bucket).put_object(Key=key, Body=pred_io)
+    #pickle.dump(predictions, pred_io)
+    #pred_io.seek(0)
+    #s3.Bucket(bucket).upload_fileobj(pred_io, key)
+    print(f'file uploaded')
     return True
 
 
@@ -113,11 +117,14 @@ def handler(event, context):
     bucket = event['Records'][0]['s3']['bucket']['name']
     # key = filename = s3 path
     key = event['Records'][0]['s3']['object']['key']
-
+    print(bucket,key)
     # load the data
     image = read_s3_image(bucket,key)
     print('Image Loaded')
     # setup inferencer
+    print('../:',os.listdir('../'))
+    print('.:',os.listdir('.'))
+    print('app/',os.listdir('app/'))
     gradio_inferencer = get_inferencer(DEFAULT_CONFIG_PATH, DEFAULT_WEIGHT_PATH, DEFAULT_META_DATA_path)
 
     heat_map, pred_mask, segmentations = infer(image, gradio_inferencer)
@@ -130,7 +137,7 @@ def handler(event, context):
     print('Prediction Saved')
     return True
 
-if __name__ == 'main':
-    print('Run MAIN ...')
+if __name__ == '__main__':
+    print('Running locally')
 
 

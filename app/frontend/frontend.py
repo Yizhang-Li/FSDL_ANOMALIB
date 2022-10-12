@@ -23,16 +23,9 @@ import time
 #from botocore.errorfactory import ClientError
 from datetime import timedelta
 
-title = "Anomaly Detection"
+title = "Anomaly Detection: Bottle"
 description = """
 <h2> Description </h2>
-Anomalib is 
-The positivity is measured in five categories:
-- Extremely negative
-- Negative
-- Neutral
-- Positive
-- Extremely positive
 The application is based on a PADIM model fine tuned on the following:
 [dataset](https://www.kaggle.com/datasets/datatattle/covid-19-nlp-text-classification).
 """
@@ -54,12 +47,12 @@ def save_s3_image(image_array, bucket='fsdl-anomalib'):
     np_buffer = io.BytesIO()
     pickle.dump(image_array, np_buffer)
     np_buffer.seek(0)
-    s3_client.upload_fileobj(np_buffer, bucket, key)
-    #s3_client.put_object(Bucket=bucket, Key=key, Body=csv_buffer.getvalue())
+    #s3_client.upload_fileobj(np_buffer, bucket, key)
+    s3_client.put_object(Bucket=bucket, Key=key, Body=np_buffer)
     print(f'file written to {bucket} --{key}')
     return pred_key
 
-def read_s3_prediction(bucket,key,timeout = 120):
+def read_s3_prediction(bucket,key,timeout = 240):
     """Read prediction produced by AWS Lambda.
     Prediction[dict]: '
         - 'heat_map': predictions.heat_map,
@@ -75,10 +68,10 @@ def read_s3_prediction(bucket,key,timeout = 120):
     wait_until = datetime.datetime.now() + timedelta(seconds = timeout)
     while not exist_flag:
         try:
-            s3.head_object(bucket, key)
+            s3.head_object(Bucket = bucket, Key = key)
             exist_flag = True
         except:
-            time.sleep(2)
+            time.sleep(3)
             pass
 
         if wait_until < datetime.datetime.now():
@@ -88,6 +81,7 @@ def read_s3_prediction(bucket,key,timeout = 120):
                    'segmentations': np.empty([16,16])}
 
     print(f'file found!')
+    s3 = boto3.resource('s3')
     with io.BytesIO() as data:
         s3.Bucket(bucket).download_fileobj(key, data)
         data.seek(0)  # move back to the beginning after writing
@@ -126,9 +120,9 @@ def infer_image(image):
     # trigger AWS Lambda
 
     # Weight until prediction is made
-    predictions = read_s3_prediction('fsdl-anomalib-prediction', pred_key, timeout=120)
+    predictions = read_s3_prediction('fsdl-anomalib-prediction', pred_key, timeout=240)
 
-    return (predictions.heat_map, predictions.pred_mask, predictions.segmentations)
+    return (predictions['heat_map'], predictions['red_mask'], predictions['segmentations'])
 
 if __name__ == "__main__":
     gradio.close_all()

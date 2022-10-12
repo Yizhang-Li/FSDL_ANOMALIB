@@ -17,6 +17,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     automake \
     make \
     cmake \
+    libsndfile1\
     libcurl4
 
 #RUN apt-get update && \
@@ -26,7 +27,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 #    rm -rf /var/lib/apt/lists/*
 
 # Install libgomp for lightgbm
-RUN conda install -c conda-forge libgomp -y
+# RUN conda install -c conda-forge libgomp -y
 # Include global args in this stage of the build
 ARG FUNCTION_DIR
 ARG RUNTIME_VERSION
@@ -45,6 +46,9 @@ RUN python -m pip install awslambdaric --target ${FUNCTION_DIR}
 # Grab a fresh copy of the Python image
 FROM miniconda3
 RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y libpython3.9-dev\
+    libatlas-base-dev
+#RUN conda install -c intel openvino-ie4py
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
 # Set working directory to function root directory
@@ -55,6 +59,11 @@ COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
 
 # Install Python Libraries for Model
 COPY install_requirements.sh /home/app/
+COPY tools/config/padim/config.yaml /home/app/config.yaml
+COPY results/padim/mvtec/bottle/openvino/model.bin /home/app/model.bin
+COPY results/padim/mvtec/bottle/openvino/meta_data.json /home/app/meta_data.json
+COPY results/padim/mvtec/bottle/openvino/model.xml /home/app/model.xml
+COPY results/padim/mvtec/bottle/openvino/model.mapping /home/app/model.mapping
 RUN chmod 755 /home/app/install_requirements.sh
 RUN /home/app/install_requirements.sh
 #RUN python -m spacy download en_core_web_lg
@@ -63,5 +72,8 @@ RUN /home/app/install_requirements.sh
 COPY entry.sh /home/
 RUN chmod 755 /home/entry.sh
 ENTRYPOINT [ "/home/entry.sh" ]
-#RUN python -m app.main
-CMD [ "app.handler" ]
+#RUN echo $(ls -r) 
+#RUN echo "export LD_LIBRARY_PATH=/opt/conda/envs/lib:$LD_LIBRARY_PATHY" >> ~/.bashrc
+#RUN export LD_LIBRARY_PATH=/opt/conda/lib:$LD_LIBRARY_PATHY
+RUN python -m app.app
+CMD [ "app.app.handler" ]

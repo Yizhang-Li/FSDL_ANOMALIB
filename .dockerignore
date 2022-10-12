@@ -6,6 +6,7 @@
 .md
 __pycache__
 datasets/
+anomalib/
 app/frontend/
 app/model/
 app/preprocessing/

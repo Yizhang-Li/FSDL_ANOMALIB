@@ -6,4 +6,4 @@ datasets/MVTec/
 *.onnx
 *.ckpt
 *.bin
-
+model-dev/
