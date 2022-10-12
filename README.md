@@ -19,15 +19,19 @@ You need to put the following files in the folder `results/`:
 
 ## Deployment
 
-General steps to deploy your code include
-
-1.  Build your machine learning model and pipeline
-2.  Create/setup a AWS account
-3.  Package your code in a Docker container
-4.  Upload your Docker image to AWS Elastic Container Registry (ECR)
-5.  Create your AWS Lambda to run the ECR image
-6.  Run/test/configure your AWS Lambda
-7.  Deliver your results to others who may need the results
+1.  Create/setup a AWS account
+2.  Register an image repo on AWS ECR. 
+3.  Upload your Docker image to AWS Elastic Container Registry (ECR)
+    - docker login
+    - docker build -t 
+    - docker tag
+    - docker push
+4.  Create your AWS Lambda to run the ECR image
+    - Create the Lambda function with pushed image
+    - Config max memory usage and timeout
+    - Create a test 
+    - Add a triger
+5. Run the frontend in a seperate ec2 instance.
 
 
 ![Deployment Process](images/diagram2.png)
